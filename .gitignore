@@ -1,0 +1,51 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+newsbot-env/
+env/
+venv/
+
+# Environment variable files
+.env
+
+# VS Code files
+.vscode/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# macOS files
+.DS_Store
+
+# Pytest cache
+.pytest_cache/
+
+# Log files
+*.log
+
+# Pickle or cache files
+*.pkl
+*.joblib
+
+# Compiled Cython files
+*.c
+*.so
+
+# Python egg info
+*.egg-info/
+dist/
+build/
+
+# Coverage reports
+htmlcov/
+.coverage
+
+# Flask cache or instance folders
+instance/
+*.db
+
+# Heroku
+*.sqlite3

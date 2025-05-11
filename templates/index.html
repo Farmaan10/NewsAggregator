@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Aggregator</title>
+</head>
+<body>
+    <h1>Highlights</h1>
+
+    <div style="margin-top: 40px;">
+        <h3>Ask the chatbot a question.</h3>
+        <input type="text" id="question" placeholder="Ask your question" style="width: 60%;">
+        <button onclick="askQuestion()">Ask</button>
+        <p id="chatbot-response" style="margin-top: 20px;"></p>
+    </div>
+
+    <hr>
+
+    <!-- Filter Dropdown -->
+    <form method="POST" action="/filter">
+        <label for="category">Choose a category:</label>
+        <select name="category" id="category">
+            <option value="all">All</option>
+            {% for category in categories %}
+            <option value="{{ category }}">{{ category }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Filter</button>
+    </form>
+
+    <!-- Display Highlights -->
+    <div>
+        {% for article in highlights[:10] %}
+        <div style="margin-top: 40px;">
+            <h2>{{ article['title'] }}</h2>
+            <p>
+                <strong>Author(s):</strong> {{ article['author(s)'] }} &emsp;
+                <strong>Category:</strong> {{ article['predicted_category'] }} &emsp;
+                <strong>Date:</strong> {{ article['date'] }}
+            </p>
+            <p>{{ article['summarized_text'] }}</p>
+            <a href="{{ article['url'] }}" target="_blank">Read more</a>
+            <p>
+                <strong>Frequency:</strong> {{ article['frequency'] }} &emsp;
+                <strong>Other source(s):</strong> {{ article['similar_urls'] }} &emsp;
+                <strong>Key words:</strong> {{ article['keywords'] }}</p>
+
+        </div>
+        {% else %}
+        <p>No highlights available for this category.</p>
+        {% endfor %}
+    </div>
+
+    <!-- JavaScript to handle chatbot -->
+    <script>
+        function askQuestion() {
+            const question = document.getElementById('question').value;
+
+            fetch('/ask', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ question: question })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('chatbot-response').innerText = data.answer;
+            })
+            .catch(error => {
+                document.getElementById('chatbot-response').innerText = 'Error: ' + error;
+            });
+        }
+    </script>
+
+</body>
+</html>
