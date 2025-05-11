@@ -21,7 +21,7 @@ jobs:
 
       - name: Run data pipeline
         env:
-        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: python main.py
 
       - name: Commit and push changes
