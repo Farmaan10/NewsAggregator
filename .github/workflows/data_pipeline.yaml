@@ -18,11 +18,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install pip-tools
-          pip install lxml[html_clean]  # Critical fix for newspaper3k
-          pip-compile --generate-hashes --output-file requirements.lock
-          pip install -r requirements.lock
-          python -m nltk.downloader punkt  # NLTK data
+          pip install requirements.txt
 
       - name: Run data pipeline
         env:
