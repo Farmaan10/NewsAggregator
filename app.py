@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify
 import pickle
 from rag_chatbot import answer_question
 from prioritizer_news import prioritize_articles 
+import os
 
 app = Flask(__name__)
 
@@ -49,4 +50,6 @@ def filter_highlights():
     return render_template('index.html', highlights=filtered_highlights, categories=categories)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    #app.run(debug=True)
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host='0.0.0.0', port=port)
