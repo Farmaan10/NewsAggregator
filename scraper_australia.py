@@ -40,7 +40,7 @@ class NewsScraper:
         return articles
     
     def _get_category_urls(self):
-        """Hardcoded category URLs for simplicity"""
+        # Hardcoded category URLs
         return {
             "sports": ["https://www.7news.com.au/sport", "https://www.theage.com.au/sport"],
             "lifestyle": ["https://www.7news.com.au/lifestyle", "https://www.theage.com.au/lifestyle"],
@@ -49,7 +49,7 @@ class NewsScraper:
         }
     
     def _get_article_urls(self, category_url, category):
-        """Extract article links from a category page"""
+        # Extract article links from a category page
         try:
             response = requests.get(category_url, headers=self.headers)
             soup = BeautifulSoup(response.content, 'html.parser')
@@ -90,7 +90,7 @@ class NewsScraper:
         )
     
     def _make_full_url(self, href, base_url):
-        """Convert relative URLs to absolute"""
+        # Findinf the domain from URLs
 
         if href.startswith('http'):
             return href
@@ -123,6 +123,7 @@ class NewsScraper:
                 })
 
             self.existing_urls.add(article_url)  # Add to the existing URLs set
+            
         '''
         # Print the new articles added for clarity
         if new_articles:
