@@ -1,7 +1,7 @@
 beautifulsoup4==4.13.4
 Flask==3.1.0
 langchain_community==0.3.23
-numpy==2.2.4
+numpy==2.0.2
 openai==1.78.0
 pandas==2.2.3
 python-dotenv==1.1.0
