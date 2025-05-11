@@ -5,7 +5,7 @@ import torch
 LABELS = ["sports", "lifestyle", "music", "finance"]
 
 class ArticleClassifier:
-    def __init__(self, use_gpu: bool = True):
+    def __init__(self, use_gpu = True):
         # Determine if a GPU should be used
         device = 0 if use_gpu and torch.cuda.is_available() else -1
         
@@ -53,34 +53,4 @@ class ArticleClassifier:
 _classifier_instance = ArticleClassifier()
 
 def classify_article(article):
-    """Wrapper to access the singleton classifier instance."""
     return _classifier_instance.classify(article)
-
-
-'''
-from transformers import pipeline
-import torch
-
-# Categories we want to classify into
-LABELS = ["sports", "lifestyle", "music", "finance"]
-
-class ArticleClassifier:
-    def __init__(self, use_gpu: bool = True):
-        device = 0 if use_gpu and torch.cuda.is_available() else -1
-        self.classifier = pipeline(
-            "zero-shot-classification",
-            model="valhalla/distilbart-mnli-12-3",
-            device=device
-        )
-
-    def classify(self, article):
-        text = article.get('title', '') + "\n" + article.get('text', '')
-        result = self.classifier(text, LABELS)
-        return result['labels'][0]  # Return the top predicted label
-
-# Singleton instance for use in main
-_classifier_instance = ArticleClassifier()
-
-def classify_article(article):
-    return _classifier_instance.classify(article)
-'''

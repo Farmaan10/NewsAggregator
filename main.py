@@ -47,20 +47,11 @@ def main():
     scraper = NewsScraper()
     raw_articles = scraper.scrape_news()
     
-    # Step 2: Categorize these articles using a transformer
-    '''
-    classified_articles = []
-    for article in raw_articles:
-        predicted = classify_article(article)
-        article['category'] = predicted['label']
-        article['text'] = predicted['summary']
-        classified_articles.append(article)
-    '''
-
     # Load previously retrieved articles
     cached_articles = load_articles('data/articles_prioritized.pkl')
     cached_urls = set(article['url'] for article in cached_articles)
 
+    # Step 2: Categorize these articles using a transformer
     # Categorize only new articles
     new_articles = []
     

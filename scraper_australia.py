@@ -29,7 +29,7 @@ class NewsScraper:
             for url in urls:
                 article_urls = self._get_article_urls(url, category)
 
-                #addition when adding pickle file -> check existing urls and only consider new ones
+                # Check existing urls and only consider new ones
                 existing_links = self.existing_urls  # load URLs from previous pickle
                 article_urls = [url for url in article_urls if url not in existing_links]
 
