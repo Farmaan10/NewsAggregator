@@ -18,12 +18,14 @@
     <hr>
 
     <!-- Filter Dropdown -->
-    <form method="POST" action="/filter">
+    <form method="POST" action="/filter" id="filter-form">
         <label for="category">Choose a category:</label>
         <select name="category" id="category">
             <option value="all">All</option>
             {% for category in categories %}
-            <option value="{{ category }}">{{ category }}</option>
+            <option value="{{ category }}" {% if category == current_category %}selected{% endif %}>
+                {{ category }}
+            </option>
             {% endfor %}
         </select>
         <button type="submit">Filter</button>
@@ -45,7 +47,6 @@
                 <strong>Frequency:</strong> {{ article['frequency'] }} &emsp;
                 <strong>Other source(s):</strong> {{ article['similar_urls'] }} &emsp;
                 <strong>Key words:</strong> {{ article['keywords'] }}</p>
-
         </div>
         {% else %}
         <p>No highlights available for this category.</p>
@@ -72,6 +73,16 @@
                 document.getElementById('chatbot-response').innerText = 'Error: ' + error;
             });
         }
+
+        // Prevent form submission when same category is selected
+        let lastCategory = "{{ current_category }}";
+        document.getElementById('filter-form').addEventListener('submit', function(e) {
+            const currentCategory = document.getElementById('category').value;
+            if (currentCategory === lastCategory) {
+                e.preventDefault();
+            }
+            lastCategory = currentCategory;
+        });        
     </script>
 
 </body>
