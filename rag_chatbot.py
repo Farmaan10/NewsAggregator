@@ -1,4 +1,3 @@
-# rag_chatbot.py
 from openai import OpenAI
 import numpy as np
 import pickle
@@ -9,16 +8,8 @@ import os
 load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key=api_key)
-'''
-# Convert question to embedding using OpenAI (or another embedding model)
-def get_question_embedding(question):
-    response = openai.Embedding.create(
-        input=question,
-        model="text-embedding-3-small"
-    )
-    return np.array(response['data'][0]['embedding'])
-'''
 
+# Convert question to embedding using OpenAI embedding model
 def get_question_embedding(question):
     response = client.embeddings.create(
         input=question,
@@ -47,18 +38,6 @@ def generate_answer(question, retrieved_articles):
     
     Answer:"""
 
-    '''
-    response = openai.ChatCompletion.create(
-        model="gpt-4.1",
-        messages=[
-            {"role": "system", "content": "You are a helpful news assistant."},
-            {"role": "user", "content": prompt}
-        ],
-        temperature=0.4
-    )
-    return response['choices'][0]['message']['content'].strip()
-
-    '''
     response = client.chat.completions.create(
         model="gpt-4",
         messages=[
