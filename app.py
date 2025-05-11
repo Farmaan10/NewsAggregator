@@ -36,7 +36,7 @@ def ask():
 # Filter articles by category
 @app.route('/filter', methods=['POST'])
 def filter_highlights():
-    selected_category = request.form.get('category')
+    selected_category = request.form.get('category', 'all')
     prioritized_highlights = load_highlights()
     # If the selected category is 'all', show all highlights (same as home page)
     if selected_category == 'all' or selected_category == None:
@@ -47,7 +47,7 @@ def filter_highlights():
     
     categories = set(article['predicted_category'] for article in prioritized_highlights)
 
-    return render_template('index.html', highlights=filtered_highlights, categories=categories)
+    return render_template('index.html', highlights=filtered_highlights, categories=categories, current_category=selected_category)
 
 if __name__ == '__main__':
     #app.run(debug=True)
