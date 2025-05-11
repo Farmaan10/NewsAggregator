@@ -1,4 +1,4 @@
-name: Daily Data Update (Adelaide Time)
+name: Daily Data Update (Adelaide Time Midnight)
 on:
   schedule:
     # Runs at 12 AM Adelaide time year-round (UTC+9:30/+10:30)
@@ -20,6 +20,8 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run data pipeline
+        env:
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: python main.py
 
       - name: Commit and push changes
