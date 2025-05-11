@@ -12,14 +12,14 @@ class ArticleClassifier:
         # Load the zero-shot classification model (using a dedicated model for classification)
         self.classifier = pipeline(
             "zero-shot-classification",
-            model="facebook/bart-large-mnli",  # Switch to a model suited for zero-shot classification
+            model="facebook/bart-large-mnli",
             device=device
         )
 
         # Load the summarization model
         self.summarizer = pipeline("summarization", model="facebook/bart-large-cnn", device=device)
 
-    def summarize_text(self, text: str) -> str:
+    def summarize_text(self, text):
         """Summarize long article text."""
         max_length = 1024  # BART has a max input size limit
         if len(text) > max_length:
@@ -33,7 +33,7 @@ class ArticleClassifier:
             print(f"Error during summarization: {e}")
             return text  # Return original text if summarization fails
 
-    def classify(self, article) -> str:
+    def classify(self, article):
         """Classify the article into categories."""
         text = article.get('title', '') + "\n" + article.get('text', '')
         
@@ -73,7 +73,7 @@ class ArticleClassifier:
             device=device
         )
 
-    def classify(self, article) -> str:
+    def classify(self, article):
         text = article.get('title', '') + "\n" + article.get('text', '')
         result = self.classifier(text, LABELS)
         return result['labels'][0]  # Return the top predicted label
