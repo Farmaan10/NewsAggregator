@@ -17,7 +17,7 @@ prioritized_highlights = prioritize_articles(pickle.load(open('data/highlights.p
 # Home page
 @app.route('/')
 def index():
-    categories = set(article['predicted_category'] for article in prioritized_highlights)
+    categories = set(article['category'] for article in prioritized_highlights)
     return render_template('index.html', highlights=prioritized_highlights, categories=categories)
 
 # Chatbot Q&A endpoint
@@ -43,9 +43,9 @@ def filter_highlights():
         filtered_highlights = prioritized_highlights
     else:
         # Filter the articles based on selected category
-        filtered_highlights = [article for article in prioritized_highlights if article['predicted_category'] == selected_category]
+        filtered_highlights = [article for article in prioritized_highlights if article['category'] == selected_category]
     
-    categories = set(article['predicted_category'] for article in prioritized_highlights)
+    categories = set(article['category'] for article in prioritized_highlights)
 
     return render_template('index.html', highlights=filtered_highlights, categories=categories, current_category=selected_category)
 
